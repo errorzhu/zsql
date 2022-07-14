@@ -1,15 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.errorzhu.zsql</groupId>
-  <artifactId>zsql</artifactId>
-  <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>zsql</name>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.errorzhu.zsql</groupId>
+    <artifactId>zsql</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>zsql</name>
     <modules>
+        <module>zsql-common</module>
+        <module>zsql-meta</module>
         <module>zsql-core</module>
+        <module>zsql-engine</module>
+        <module>zsql-executor</module>
+        <module>zsql-bundle</module>
         <module>assembly</module>
-
     </modules>
 
     <properties>
@@ -39,11 +43,20 @@
         <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
         <assembly.name>zsql</assembly.name>
         <calcite-core.version>1.30.0</calcite-core.version>
+        <jackson-databind.version>2.6.7</jackson-databind.version>
+        <freemarker.version>2.3.31</freemarker.version>
+        <janino.version>3.0.16</janino.version>
+        <logback-classic.version>1.2.3</logback-classic.version>
     </properties>
 
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback-classic.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.beust</groupId>
                 <artifactId>jcommander</artifactId>
@@ -80,6 +93,30 @@
                 <artifactId>calcite-file</artifactId>
                 <version>${calcite-core.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson-databind.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
+
+<!--            <dependency>-->
+<!--                <groupId>org.codehaus.janino</groupId>-->
+<!--                <artifactId>janino</artifactId>-->
+<!--                <version>${janino.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.codehaus.janino</groupId>-->
+<!--                <artifactId>commons-compiler</artifactId>-->
+<!--                <version>${janino.version}</version>-->
+<!--            </dependency>-->
+
         </dependencies>
 
     </dependencyManagement>

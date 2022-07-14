@@ -1,0 +1,5 @@
+DEPTNO:string,NAME:string
+E01,"Sales"
+E01,"Marketing"
+E01,"Accounts"
+20,"Engineering"

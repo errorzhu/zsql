@@ -1,0 +1,20 @@
+#!/bin/bash
+root_dir=$(cd "$(dirname $0)";pwd)
+root_dir=$(readlink -f "$root_dir")
+work_dir=$(dirname $root_dir)
+cd $work_dir
+######################main################
+DB=$work_dir/db/
+
+sed -i "s#@DB@#$DB#g" $work_dir/etc/hibernate.h2.cfg.xml
+
+if [ "$#" -ne 4  ];then
+  echo "miss parameters ,it requires 2 !!!"
+  echo "usage: ./zsql -sql 'select 1' -engine memory|spark "
+  exit 1
+fi
+java -cp "$work_dir/etc:$work_dir/jars/*" org.errorzhu.zsql.core.Runner -ext $work_dir/ext "$@"
+
+
+
+

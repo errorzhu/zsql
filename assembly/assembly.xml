@@ -39,8 +39,50 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>${project.parent.basedir}/db</directory>
+            <outputDirectory>${assembly.name}/db</outputDirectory>
+            <includes>
+                <include>*</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>${project.parent.basedir}/zsql-core/target/</directory>
             <outputDirectory>${assembly.name}/jars</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.parent.basedir}/zsql-core/target/lib</directory>
+            <outputDirectory>${assembly.name}/jars</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.parent.basedir}/zsql-bundle/spark-bundle/target/lib</directory>
+            <outputDirectory>${assembly.name}/ext/engine/SPARK</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.parent.basedir}/zsql-executor/target/lib</directory>
+            <outputDirectory>${assembly.name}/ext/executor</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.parent.basedir}/zsql-executor/target</directory>
+            <outputDirectory>${assembly.name}/ext/executor</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.parent.basedir}/zsql-bundle/jdbc-bundle/target/lib</directory>
+            <outputDirectory>${assembly.name}/ext/driver</outputDirectory>
             <includes>
                 <include>*.jar</include>
             </includes>
