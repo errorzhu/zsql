@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ZSqlMetaRepository {
     private final EntityManager entityManager;
@@ -82,5 +83,11 @@ public class ZSqlMetaRepository {
     public void close(){
         this.entityManager.close();
         this.factory.close();
+    }
+
+    public Map<String, DataSource> getSchemas(List<String> tables) {
+        Map<String, DataSource> allSchemas = getAllSchemas();
+        Map<String, DataSource> result = allSchemas.entrySet().stream().filter(x -> tables.contains(x.getKey())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        return result;
     }
 }

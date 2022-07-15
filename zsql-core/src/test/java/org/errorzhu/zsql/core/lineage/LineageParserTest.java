@@ -13,6 +13,7 @@ public class LineageParserTest {
         Lineage lineage = parser.parse("select * from test.a");
         Assert.assertEquals(lineage.getSources().get(0),"test.a");
         Assert.assertNull(lineage.getTargets());
+        Assert.assertEquals(LineageType.NONE,lineage.getType());
     }
 
     @Test
@@ -20,6 +21,7 @@ public class LineageParserTest {
         Lineage lineage = parser.parse("create table B as select * from a");
         Assert.assertEquals(lineage.getSources().get(0),"a");
         Assert.assertEquals(lineage.getTargets().get(0),"B");
+        Assert.assertEquals(LineageType.CREATE,lineage.getType());
     }
 
     @Test
@@ -27,6 +29,7 @@ public class LineageParserTest {
         Lineage lineage = parser.parse("insert into   b  select * from a");
         Assert.assertEquals(lineage.getSources().get(0),"a");
         Assert.assertEquals(lineage.getTargets().get(0),"b");
+        Assert.assertEquals(LineageType.INSERT,lineage.getType());
     }
 
 }

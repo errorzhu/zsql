@@ -10,6 +10,7 @@ import org.errorzhu.zsql.meta.template.CsvSchema;
 import org.errorzhu.zsql.meta.template.JdbcSchema;
 import org.errorzhu.zsql.meta.template.ModelTemplate;
 
+import java.util.List;
 import java.util.Map;
 
 public class ZSqlMetaService {
@@ -41,6 +42,10 @@ public class ZSqlMetaService {
 
     public Map<String, DataSource> getDataSources() {
         return repository.getAllSchemas();
+    }
+
+    public Map<String, DataSource> getDataSources(List<String> tables) {
+        return repository.getSchemas(tables);
     }
 
     public String getMetaModel() throws JsonProcessingException {

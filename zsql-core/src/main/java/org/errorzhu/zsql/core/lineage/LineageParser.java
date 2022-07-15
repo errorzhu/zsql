@@ -14,13 +14,14 @@ import java.util.List;
 
 public class LineageParser {
 
-    SqlParser.Config config = SqlParser
+    private SqlParser.Config config = SqlParser
             .config()
             .withCaseSensitive(true)
             .withParserFactory(SqlDdlParserImpl.FACTORY)
             .withQuotedCasing(Casing.UNCHANGED)
             .withUnquotedCasing(Casing.UNCHANGED);
 
+    private LineageType type;
 
     private List<String> getSourceTables(SqlNode node) throws SqlParseException {
         List<String> tables = Lists.newLinkedList();
@@ -30,13 +31,17 @@ public class LineageParser {
     private List<String> getTargetTables(SqlNode node) {
         switch (node.getKind()){
             case CREATE_TABLE:
+                type  = LineageType.CREATE;
                 SqlCreate create = (SqlCreate) node;
                 node = create.getOperandList().get(2);
                 return ImmutableList.of(create.getOperandList().get(0).toString());
             case INSERT:
+                type = LineageType.INSERT;
                 SqlInsert insert = (SqlInsert) node;
                 node = insert.getSource();
                 return ImmutableList.of(insert.getTargetTable().toString());
+            default:
+                type = LineageType.NONE;
         }
         return null;
     }
@@ -52,7 +57,7 @@ public class LineageParser {
         SqlNode node = parseSQL(sql);
         List<String> targets = getTargetTables(node);
         List<String> source = getSourceTables(node);
-        return new Lineage(source, targets);
+        return new Lineage(source, targets,type);
     }
 
 
