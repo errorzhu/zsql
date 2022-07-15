@@ -6,9 +6,10 @@ import org.apache.calcite.schema.SchemaPlus;
 import org.apache.calcite.sql.SqlNode;
 import org.apache.calcite.sql.parser.SqlParser;
 import org.apache.calcite.sql.parser.ddl.SqlDdlParserImpl;
-import org.apache.calcite.tools.*;
+import org.apache.calcite.tools.FrameworkConfig;
+import org.apache.calcite.tools.Frameworks;
+import org.apache.calcite.tools.Planner;
 import org.errorzhu.zsql.core.result.ResultWrapper;
-import org.errorzhu.zsql.meta.ZSqlMetaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,25 +21,17 @@ import java.util.Properties;
 
 public class ZSqlParser {
 
-    private ZSqlMetaService metaService;
+//    private  List<String> sources;
+//    private ZSqlMetaService metaService;
     private Logger logger = LoggerFactory.getLogger(ZSqlParser.class);
     private ResultSet rs = null;
     private Statement statement = null;
     private CalciteConnection connection = null;
 
 
-    public ZSqlParser() {
-        metaService = new ZSqlMetaService("h2");
-    }
 
-    protected ZSqlParser(ZSqlMetaService metaService) {
-        this.metaService = metaService;
-    }
-
-
-    public void parseAndRun(String sql) {
+    public void parseAndRun(String sql,String model) {
         try {
-            String model = metaService.getMetaModel();
             Properties config = new Properties();
             config.put("model", model);
             config.put("lex", "MYSQL");
@@ -57,9 +50,8 @@ public class ZSqlParser {
 
     }
 
-    public RelNode parse(String sql) {
+    public RelNode parse(String sql,String model) {
         try {
-            String model = metaService.getMetaModel();
             Properties config = new Properties();
             config.put("model", model);
             config.put("lex", "MYSQL");
@@ -91,7 +83,6 @@ public class ZSqlParser {
             if (connection != null) {
                 connection.close();
             }
-            metaService.close();
         } catch (SQLException throwables) {
         }
     }

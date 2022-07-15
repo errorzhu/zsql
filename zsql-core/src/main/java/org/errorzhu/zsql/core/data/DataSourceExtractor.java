@@ -23,7 +23,7 @@ public class DataSourceExtractor extends RelShuttleImpl {
     @Override
     public RelNode visit(TableScan scan) {
         List<String> name = scan.getTable().getQualifiedName();
-        this.dataSources.add(name);
+//        this.dataSources.add(name);
         return super.visit(scan);
     }
 

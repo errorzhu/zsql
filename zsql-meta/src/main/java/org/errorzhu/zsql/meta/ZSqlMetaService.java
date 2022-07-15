@@ -61,6 +61,19 @@ public class ZSqlMetaService {
         return "inline: " + om.writeValueAsString(template);
     }
 
+    public String getMetaModel(List<String> tables) throws JsonProcessingException {
+
+        ModelTemplate template = new ModelTemplate();
+
+        Map<String, DataSource> schemas = repository.getSchemas(tables);
+        for (String index : schemas.keySet()) {
+            DataSource dataSource = schemas.get(index);
+            template.addSchema(getSchema(dataSource));
+        }
+
+        return "inline: " + om.writeValueAsString(template);
+    }
+
     public void close(){
         this.repository.close();
     }

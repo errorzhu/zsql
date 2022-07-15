@@ -18,7 +18,6 @@ public class PhysicalPlan {
     private IEngine engine;
     private DataSources dataSources;
     private String engineType;
-    private String originalSql;
 
 
     private Logger logger = LoggerFactory.getLogger(PhysicalPlan.class);
@@ -28,7 +27,6 @@ public class PhysicalPlan {
         this.executeSql = substituteTableName(sql, dataSources);
         this.dataSources = dataSources;
         this.engineType = engine;
-        this.originalSql = sql;
         this.extDir = extDir;
     }
 
@@ -40,10 +38,11 @@ public class PhysicalPlan {
     }
 
     public void execute() throws Exception {
+        // todo:支持dml
         String code = this.engine.getCode(this.executeSql, this.dataSources);
         logger.info("execute code: " + code);
         Class<?> executor = ExecutorFactory.getInstance(this.extDir, this.engineType);
         Method method = executor.getDeclaredMethod(EXECUTE, String.class);
-        method.invoke(executor.newInstance(),code);
+        method.invoke(executor.newInstance(), code);
     }
 }

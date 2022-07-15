@@ -1,6 +1,5 @@
 package org.errorzhu.zsql.engine.spark;
 
-import com.google.common.collect.ImmutableList;
 import freemarker.template.TemplateException;
 import org.errorzhu.zsql.common.data.DataSource;
 import org.errorzhu.zsql.common.data.DataSources;
@@ -22,7 +21,6 @@ public class SparkEngineTest {
         source.addParam("directory", "/opt/test");
         dataSources.put("csv.depts", source);
         DataSources sources = new DataSources(dataSources);
-        sources.add(ImmutableList.of("csv", "depts"));
 
         ZSqlSparkEngine engine = new ZSqlSparkEngine();
         String code = engine.getCode("select * from csv_depts_temp", sources);
@@ -64,7 +62,6 @@ public class SparkEngineTest {
         source.addParam("jdbcPassword", "123456");
         dataSources.put("mysql.department2", source);
         DataSources sources = new DataSources(dataSources);
-        sources.add(ImmutableList.of("mysql", "department2"));
 
 
         String expect="import org.apache.spark.sql.AnalysisException;\n" +
