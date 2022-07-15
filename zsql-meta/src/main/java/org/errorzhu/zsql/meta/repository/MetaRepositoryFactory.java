@@ -10,6 +10,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class MetaRepositoryFactory {
 
 
+    private MetaRepositoryFactory() {
+    }
+
     public static ZSqlMetaRepository getInstance(String type) {
 
         String config = getConfig(type);

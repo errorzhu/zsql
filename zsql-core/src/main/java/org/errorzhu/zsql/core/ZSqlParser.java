@@ -20,11 +20,20 @@ import java.util.Properties;
 
 public class ZSqlParser {
 
-    private ZSqlMetaService metaService = new ZSqlMetaService("h2");
+    private ZSqlMetaService metaService;
     private Logger logger = LoggerFactory.getLogger(ZSqlParser.class);
     private ResultSet rs = null;
     private Statement statement = null;
     private CalciteConnection connection = null;
+
+
+    public ZSqlParser() {
+        metaService = new ZSqlMetaService("h2");
+    }
+
+    protected ZSqlParser(ZSqlMetaService metaService) {
+        this.metaService = metaService;
+    }
 
 
     public void parseAndRun(String sql) {

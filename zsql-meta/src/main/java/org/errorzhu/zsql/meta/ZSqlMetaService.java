@@ -21,6 +21,10 @@ public class ZSqlMetaService {
         this.repository = MetaRepositoryFactory.getInstance(dbType);
     }
 
+    public ZSqlMetaRepository getRepository() {
+        return repository;
+    }
+
     private AbstractSchema getSchema(DataSource dataSource) {
 
         switch (dataSource.getType()) {
@@ -48,7 +52,6 @@ public class ZSqlMetaService {
             DataSource dataSource = schemas.get(index);
             template.addSchema(getSchema(dataSource));
         }
-
 
         return "inline: " + om.writeValueAsString(template);
     }
