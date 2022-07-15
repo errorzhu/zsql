@@ -43,23 +43,10 @@ public class ZSqlParser {
             logger.error("run sql failure", e);
 
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (statement != null) {
-                    statement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-                metaService.close();
-            } catch (SQLException throwables) {
-            }
+            close();
         }
 
     }
-
 
     public RelNode parse(String sql) {
         try {
@@ -77,16 +64,27 @@ public class ZSqlParser {
             RelNode relNode = planner.rel(validate).project();
             return relNode;
         } catch (Exception e) {
+            logger.error("parse sql failure", e);
         } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-                metaService.close();
-            } catch (Exception e) {
-            }
+            close();
         }
         return null;
+    }
+
+    private void close() {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+            metaService.close();
+        } catch (SQLException throwables) {
+        }
     }
 }
 

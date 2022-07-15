@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<configuration>
+<configuration debug="false">
+    <logger name="org.hibernate" level="WARN"/>
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
     <!-- 属性文件:在properties文件中找到对应的配置项 -->
     <springProperty scope="context" name="logging.path" source="logging.path"/>
     <contextName>zsql</contextName>

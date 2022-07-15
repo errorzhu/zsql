@@ -117,8 +117,7 @@ public class ResultWrapper {
             }
             line.append("|");
             System.out.println(line.toString());
-        }
-        while (this.rs.next());
+        } while (this.rs.next());
 
         System.out.println(framer.get());
 
