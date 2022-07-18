@@ -1,24 +1,24 @@
 {
   "version": "1.0",
-  "defaultSchema": "mysql",
+  "defaultSchema": "CSV",
   "schemas": [
     {
-      "name": "mysql",
+      "name": "h2",
       "type": "custom",
       "factory": "org.apache.calcite.adapter.jdbc.JdbcSchema$Factory",
       "operand": {
-        "jdbcDriver": "com.mysql.jdbc.Driver",
-        "jdbcUrl": "jdbc:mysql://127.0.0.1:3306/project_power_plant",
-        "jdbcUser": "root",
-        "jdbcPassword": "123456"
+        "jdbcDriver": "org.h2.Driver",
+        "jdbcUrl": "jdbc:h2:file:@db@",
+        "jdbcUser": "sa",
+        "jdbcPassword": "a"
       }
     },
     {
-      "name": "csv",
+      "name": "CSV",
       "type": "custom",
       "factory": "org.apache.calcite.adapter.file.FileSchemaFactory",
       "operand": {
-        "directory": "sales"
+        "directory": "@dir@sales"
       }
     }
   ]

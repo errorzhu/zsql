@@ -21,8 +21,6 @@ import java.util.Properties;
 
 public class ZSqlParser {
 
-//    private  List<String> sources;
-//    private ZSqlMetaService metaService;
     private Logger logger = LoggerFactory.getLogger(ZSqlParser.class);
     private ResultSet rs = null;
     private Statement statement = null;
