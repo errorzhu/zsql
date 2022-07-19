@@ -17,6 +17,7 @@ import org.apache.calcite.sql.parser.SqlParseException;
 import org.apache.calcite.sql.parser.SqlParser;
 import org.apache.calcite.sql.parser.ddl.SqlDdlParserImpl;
 import org.apache.calcite.tools.*;
+import org.errorzhu.zsql.core.result.ResultWrapper;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -43,13 +44,13 @@ public class ZSqlPlannerTest {
 
 
         Properties config = new Properties();
-        config.put("model", "inline: " + model);
+        config.put("model", "inline: " + model+"/example");
         config.put("lex", "MYSQL");
         CalciteConnection connection = (CalciteConnection) DriverManager.getConnection("jdbc:calcite:", config);
         SchemaPlus rootSchema = connection.getRootSchema();
 //        String sql = "select * from CSV.depts d join mysql.test i  on d.DEPTNO = i.id where i.id = 'E01'";
 
-        String sql = "select * from MYSQL.test";
+        String sql = "select * from h2.test";
         Frameworks.ConfigBuilder builder = Frameworks.newConfigBuilder().defaultSchema(rootSchema).parserConfig(SqlParser.config().withParserFactory(SqlDdlParserImpl.FACTORY).withCaseSensitive(false));
         FrameworkConfig plannerConfig = builder.build();
         Planner planner = Frameworks.getPlanner(plannerConfig);
@@ -97,9 +98,8 @@ public class ZSqlPlannerTest {
         System.out.println("#################");
         PreparedStatement statement = RelRunners.run(optimisedRelNode);
         ResultSet resultSet1 = statement.executeQuery();
-        while (resultSet1.next()) {
-            System.out.println(resultSet1.getObject(1));
-        }
+        ResultWrapper wrapper = new ResultWrapper(resultSet1);
+        wrapper.print();
 
 
     }

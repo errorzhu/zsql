@@ -10,18 +10,15 @@ public class DataSources {
         this.allDataSources = allDataSources;
     }
 
-//    public void add(List<String> schema) {
-//        if (schema.size() == 2) {
-//            String database = schema.get(0);
-//            String table = schema.get(1);
-//            String index = database + "." + table;
-//            if (allDataSources.containsKey(index)) {
-//                sources.put(index, allDataSources.get(index));
-//            }
-//        }
-//    }
 
     public Map<String, DataSource> getSources() {
         return allDataSources;
+    }
+
+    @Override
+    public String toString() {
+        return "DataSources{" +
+                "allDataSources=" + allDataSources +
+                '}';
     }
 }

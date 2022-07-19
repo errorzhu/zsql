@@ -46,4 +46,15 @@ public class DataSource {
     public String getType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return "DataSource{" +
+                "dbName='" + dbName + '\'' +
+                ", tableName='" + tableName + '\'' +
+                ", type='" + type + '\'' +
+                ", columns=" + columns +
+                ", params=" + params +
+                '}';
+    }
 }

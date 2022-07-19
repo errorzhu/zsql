@@ -2,6 +2,8 @@ package org.errorzhu.zsql.core.plan;
 
 import org.errorzhu.zsql.common.data.DataSources;
 import org.errorzhu.zsql.core.executor.ExecutorFactory;
+import org.errorzhu.zsql.core.lineage.Lineage;
+import org.errorzhu.zsql.core.lineage.LineageType;
 import org.errorzhu.zsql.engine.IEngine;
 import org.errorzhu.zsql.engine.ZSqlEngineFactory;
 import org.slf4j.Logger;
@@ -14,7 +16,9 @@ public class PhysicalPlan {
 
     private static final String EXECUTE = "execute";
     private final String extDir;
-    private String executeSql;
+    private final DataSources dataTargets;
+    private final Lineage lineage;
+    private String sql;
     private IEngine engine;
     private DataSources dataSources;
     private String engineType;
@@ -22,12 +26,14 @@ public class PhysicalPlan {
 
     private Logger logger = LoggerFactory.getLogger(PhysicalPlan.class);
 
-    public PhysicalPlan(String extDir, String engine, String sql, DataSources dataSources) throws IOException {
+    public PhysicalPlan(String extDir, String engine, String sql, DataSources dataSources, DataSources dataTargets, Lineage lineage) throws IOException {
         this.engine = ZSqlEngineFactory.getInstance(engine);
-        this.executeSql = substituteTableName(sql, dataSources);
+        this.sql = sql;
         this.dataSources = dataSources;
+        this.dataTargets = dataTargets;
         this.engineType = engine;
         this.extDir = extDir;
+        this.lineage = lineage;
     }
 
     private String substituteTableName(String sql, DataSources dataSources) {
@@ -38,8 +44,14 @@ public class PhysicalPlan {
     }
 
     public void execute() throws Exception {
-        // todo:支持dml
-        String code = this.engine.getCode(this.executeSql, this.dataSources);
+
+        String executeSql = substituteTableName(this.sql,this.dataSources);
+        if (lineage.getType().equals(LineageType.INSERT)) {
+            String targetTable = lineage.getTargets().get(0);
+            executeSql = substituteTableName(this.sql.split(targetTable)[1].trim(),this.dataSources);
+        }
+        
+        String code = this.engine.getCode(executeSql, this.dataSources,this.dataTargets);
         logger.info("execute code: " + code);
         Class<?> executor = ExecutorFactory.getInstance(this.extDir, this.engineType);
         Method method = executor.getDeclaredMethod(EXECUTE, String.class);

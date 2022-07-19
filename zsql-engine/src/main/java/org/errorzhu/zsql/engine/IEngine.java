@@ -7,5 +7,5 @@ import java.io.IOException;
 
 public interface IEngine {
 
-    String getCode(String sql, DataSources dataSources) throws IOException, TemplateException;
+    String getCode(String sql, DataSources dataSources, DataSources dataTargets) throws IOException, TemplateException;
 }

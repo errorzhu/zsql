@@ -12,7 +12,7 @@ public class LineageParserTest {
     public void test_simple_select() throws SqlParseException {
         Lineage lineage = parser.parse("select * from test.a");
         Assert.assertEquals(lineage.getSources().get(0),"test.a");
-        Assert.assertNull(lineage.getTargets());
+        Assert.assertEquals(0,lineage.getTargets().size());
         Assert.assertEquals(LineageType.NONE,lineage.getType());
     }
 

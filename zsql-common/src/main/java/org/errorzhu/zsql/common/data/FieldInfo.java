@@ -23,4 +23,13 @@ public class FieldInfo {
     public String getGetColumnType() {
         return getColumnType;
     }
+
+    @Override
+    public String toString() {
+        return "FieldInfo{" +
+                "columnName='" + columnName + '\'' +
+                ", columnDesc='" + columnDesc + '\'' +
+                ", getColumnType='" + getColumnType + '\'' +
+                '}';
+    }
 }

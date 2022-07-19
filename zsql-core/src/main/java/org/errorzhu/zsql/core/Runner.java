@@ -11,11 +11,15 @@ import org.errorzhu.zsql.core.lineage.LineageParser;
 import org.errorzhu.zsql.core.lineage.LineageType;
 import org.errorzhu.zsql.core.plan.PhysicalPlan;
 import org.errorzhu.zsql.meta.ZSqlMetaService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Locale;
 
 public class Runner {
+
+    private static Logger logger = LoggerFactory.getLogger(Runner.class);
 
 
     public static void main(String[] args) throws Exception {
@@ -55,8 +59,8 @@ public class Runner {
         DataSources dataSources = converter.convert(sources);
         DataSources dataTargets = converter.convert(targets);
 
-
-        PhysicalPlan physicalPlan = new PhysicalPlan(extDir, engine, sql, dataSources);
+        logger.info("physical plan will execute,please wait...");
+        PhysicalPlan physicalPlan = new PhysicalPlan(extDir, engine, sql, dataSources,dataTargets,lineage);
         physicalPlan.execute();
 
         System.exit(0);

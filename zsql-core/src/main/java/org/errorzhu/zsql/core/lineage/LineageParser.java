@@ -42,8 +42,9 @@ public class LineageParser {
                 return ImmutableList.of(insert.getTargetTable().toString());
             default:
                 type = LineageType.NONE;
+
         }
-        return null;
+        return ImmutableList.of();
     }
 
     private SqlNode parseSQL(String sql) throws SqlParseException {

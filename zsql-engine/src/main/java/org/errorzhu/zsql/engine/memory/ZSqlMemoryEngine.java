@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class ZSqlMemoryEngine implements IEngine {
     @Override
-    public String getCode(String sql, DataSources dataSources) throws IOException, TemplateException {
+    public String getCode(String sql, DataSources dataSources, DataSources dataTargets) throws IOException, TemplateException {
         return null;
     }
 }

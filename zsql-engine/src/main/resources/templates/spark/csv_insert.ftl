@@ -1,0 +1,1 @@
+result.write().mode(SaveMode.Append).csv("${csv_file}");
