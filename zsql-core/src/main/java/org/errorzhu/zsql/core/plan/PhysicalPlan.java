@@ -50,7 +50,7 @@ public class PhysicalPlan {
             String targetTable = lineage.getTargets().get(0);
             executeSql = substituteTableName(this.sql.split(targetTable)[1].trim(),this.dataSources);
         }
-        
+
         String code = this.engine.getCode(executeSql, this.dataSources,this.dataTargets);
         logger.info("execute code: " + code);
         Class<?> executor = ExecutorFactory.getInstance(this.extDir, this.engineType);
